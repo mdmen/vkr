@@ -1,0 +1,22 @@
+
+.side-nav {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    max-width: 100%;
+}
+
+.side-nav .userView {
+    min-height: 300px;
+}
+
+.side-nav.collapsible {
+    border: 0;
+}
+
+.side-nav .collapsible-body {
+    padding: 0;
+}
+
+.side-nav a {
+    padding: 0 16px;
+}
