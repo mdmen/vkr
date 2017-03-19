@@ -5,10 +5,9 @@ $(document).ready(function () {
 
     var app = new App();
 
-    app.bindStateChange();
-    app.bindLinks();
+    app.init();
 
     //load intro by default
-    app.loadPage(document.location.search);
+    app.loadPage(document.location.search || '?page=intro');
 
 });
