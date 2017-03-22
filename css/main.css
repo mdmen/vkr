@@ -3,6 +3,11 @@ body,
 .fluid-container {
     width: 100%;
     height: 100%;
+    max-width: 2000px;
+}
+
+iframe {
+    max-width: 100%;
 }
 
 ::-moz-selection {
@@ -45,11 +50,11 @@ body,
 }
 
 .preloader-cont {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    left: 300px;
     background-color: rgba(255, 255, 255, .4);
     z-index: 9999;
     opacity: 0;
@@ -83,6 +88,14 @@ body,
 
 .content-inner.visible {
     opacity: 1;
+}
+
+.parallax-container.top {
+    height: 300px;
+}
+
+.parallax-container.bottom {
+    height: 200px;
 }
 
 @media only screen and (min-width: 992px) {
