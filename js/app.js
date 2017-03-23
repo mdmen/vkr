@@ -1,5 +1,5 @@
 /**
- * dependencies: jQuery, history.js, materialize.js
+ * dependencies: jQuery, history.js, materialize.js, imagesLoaded
  * @constructor
  */
 function App() {
@@ -33,6 +33,7 @@ function App() {
 
         name = (~name.indexOf('?page=')) ? name.slice(6) : 'intro';
 
+        self.hideContent();
         self.showPreloader();
 
         self.getPageContent(name, getPageCallback, title);
@@ -51,8 +52,15 @@ function App() {
         }, 300);
     };
 
-    self.showPreloader = function () {
+    self.hideContent = function () {
         $content.find('.content-inner').removeClass('visible');
+    };
+
+    self.showContent = function() {
+        $content.find('.content-inner').addClass('visible');
+    };
+
+    self.showPreloader = function () {
         $content.find('.preloader-cont, ' +
             '.preloader-wrapper').addClass('active');
     };
@@ -60,7 +68,6 @@ function App() {
     self.hidePreloader = function () {
         $content.find('.preloader-cont, ' +
             '.preloader-wrapper').removeClass('active');
-        $content.find('.content-inner').addClass('visible');
     };
 
     self.delay = function (func, ms) {
@@ -74,8 +81,13 @@ function App() {
             search = arguments[0];
 
         $content.find('.content-inner').html(html);
-        self.hidePreloader();
-        $('.parallax').parallax();
+
+        $content.imagesLoaded(function() {
+            $('.parallax').parallax();
+            self.hidePreloader();
+            self.showContent();
+        });
+
         if (title) {
             History.pushState(null, title, search);
         }

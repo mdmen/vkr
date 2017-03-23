@@ -38,7 +38,7 @@ iframe {
     padding: 0;
 }
 
-.side-nav a {
+.side-nav li > a {
     padding: 0 16px;
     font-size: 16px;
 }
