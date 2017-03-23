@@ -84,6 +84,7 @@ function App() {
 
         $content.imagesLoaded(function() {
             $('.parallax').parallax();
+            $('ul.tabs').tabs();
             self.hidePreloader();
             self.showContent();
         });
