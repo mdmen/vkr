@@ -7,7 +7,7 @@ Reveal.initialize({
     overview: true,
     mouseWheel: true,
     keyboard: true,
-    transition: 'slide', // none/fade/slide/convex/concave/zoom
+    transition: 'slide',
     parallaxBackgroundImage: '../../img/topography.png',
     parallaxBackgroundHorizontal: 200,
     parallaxBackgroundVertical: 100
