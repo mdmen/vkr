@@ -1,5 +1,5 @@
 /**
- * dependencies: jQuery, history.js, materialize.js, imagesLoaded
+ * dependencies: jQuery, history.js, materialize.js, imagesLoaded, lazy-load
  * @constructor
  */
 function App() {
@@ -40,7 +40,7 @@ function App() {
 
     };
 
-    self.getPageContent = function(name, callback, title) {
+    self.getPageContent = function (name, callback, title) {
         self.delay(function () {
             $.get(
                 rootPath + 'pages/' + name + '.html',
@@ -56,7 +56,7 @@ function App() {
         $content.find('.content-inner').removeClass('visible');
     };
 
-    self.showContent = function() {
+    self.showContent = function () {
         $content.find('.content-inner').addClass('visible');
     };
 
@@ -82,11 +82,24 @@ function App() {
 
         $content.find('.content-inner').html(html);
 
-        $content.imagesLoaded(function() {
+        $content.imagesLoaded(function () {
             $('.parallax').parallax();
             $('ul.tabs').tabs();
             self.hidePreloader();
             self.showContent();
+
+            var $lessonImages = $('.lesson-wrapper img[data-src]');
+
+            $lessonImages.each(function(){
+                $(this).wrap('<div class="lesson-image-wrap container"></div>');
+            });
+
+            $lessonImages.Lazy({
+                effect: 'fadeIn',
+                effectTime: 300
+            });
+
+            $lessonImages.materialbox();
         });
 
         if (title) {

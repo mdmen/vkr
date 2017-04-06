@@ -102,6 +102,15 @@ iframe {
     height: 200px;
 }
 
+.lesson-image-wrap {
+    text-align: center;
+}
+
+.lesson-image-wrap img:not(.active) {
+    max-width: 100%;
+    cursor: pointer;
+}
+
 @media only screen and (min-width: 992px) {
     html {
         font-size: 15px;
