@@ -94,7 +94,7 @@ function App() {
                 $(this).wrap('<div class="lesson-image-wrap container"></div>');
             });
 
-            $lessonImages.Lazy({
+            $('img[data-src]').Lazy({
                 effect: 'fadeIn',
                 effectTime: 300
             });
