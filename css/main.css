@@ -111,6 +111,15 @@ iframe {
     cursor: pointer;
 }
 
+.question ul li {
+    list-style: lower-alpha;
+    margin-left: 20px;
+}
+
+.question > li {
+    margin-bottom: 15px;
+}
+
 @media only screen and (min-width: 992px) {
     html {
         font-size: 15px;
