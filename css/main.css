@@ -120,6 +120,10 @@ iframe {
     margin-bottom: 15px;
 }
 
+.tabs {
+    overflow-x: hidden;
+}
+
 @media only screen and (min-width: 992px) {
     html {
         font-size: 15px;
