@@ -85,7 +85,6 @@ function App() {
         $content.imagesLoaded(function () {
             $('.parallax').parallax();
             $('ul.tabs').tabs();
-            $('.collapsible').collapsible();
             self.hidePreloader();
             self.showContent();
 
