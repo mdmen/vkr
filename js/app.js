@@ -2,7 +2,7 @@
 function App() {
     var self = this;
 
-    this.rootPath = '/';
+    this.rootPath = '/vkr/';
 
     this._delay = function (func, ms) {
         setTimeout(func, ms);
