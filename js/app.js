@@ -1,96 +1,31 @@
-/**
- * dependencies: jQuery, history.js, materialize.js, imagesLoaded, lazy-load
- * @constructor
- */
+
 function App() {
+    var self = this;
 
-    'use strict';
+    this.rootPath = '/';
 
-    var self = this,
-        $content = $('.content'),
-        rootPath = '/vkr/',
-        messages = {
-            no_found: 'Страница не найдена'
-        };
-
-    self.init = function () {
-
-        History.Adapter.bind(window, 'statechange', function () {
-            self.loadPage(document.location.search);
-        });
-
-        $('body').on('click', '.js-link', function () {
-            var $self = $(this);
-            History.pushState(null, $self.text(), $self.attr('href'));
-            return false;
-        });
-
-    };
-
-    self.loadPage = function (search, title) {
-
-        var name = search || '';
-
-        name = (~name.indexOf('?page=')) ? name.slice(6) : 'intro';
-
-        self.hideContent();
-        self.showPreloader();
-
-        self.getPageContent(name, getPageCallback, title);
-
-    };
-
-    self.getPageContent = function (name, callback, title) {
-        self.delay(function () {
-            $.get(
-                rootPath + 'pages/' + name + '.html',
-                {},
-                callback.bind(null, name, title)
-            ).fail(function () {
-                alert(messages.no_found);
-            });
-        }, 300);
-    };
-
-    self.hideContent = function () {
-        $content.find('.content-inner').removeClass('visible');
-    };
-
-    self.showContent = function () {
-        $content.find('.content-inner').addClass('visible');
-    };
-
-    self.showPreloader = function () {
-        $content.find('.preloader-cont, ' +
-            '.preloader-wrapper').addClass('active');
-    };
-
-    self.hidePreloader = function () {
-        $content.find('.preloader-cont, ' +
-            '.preloader-wrapper').removeClass('active');
-    };
-
-    self.delay = function (func, ms) {
+    this._delay = function (func, ms) {
         setTimeout(func, ms);
     };
 
-    function getPageCallback() {
+    this._getPageCallback = function () {
+        var self = this;
+        var html = arguments[2] || '';
+        var title = arguments[1] || '';
+        var search = arguments[0] || '';
 
-        var html = arguments[2] || '',
-            title = arguments[1],
-            search = arguments[0];
+        $('.content').find('.content-inner').html(html);
 
-        $content.find('.content-inner').html(html);
-
-        $content.imagesLoaded(function () {
+        $('.content').imagesLoaded(function () {
             $('.parallax').parallax();
             $('ul.tabs').tabs();
+
             self.hidePreloader();
             self.showContent();
 
             var $lessonImages = $('.lesson-wrapper img[data-src]');
 
-            $lessonImages.each(function(){
+            $lessonImages.each(function () {
                 $(this).wrap('<div class="lesson-image-wrap container"></div>');
             });
 
@@ -107,4 +42,57 @@ function App() {
         }
     }
 
+    History.Adapter.bind(window, 'statechange', function () {
+        self.loadPage(document.location.search);
+    });
+
+    $('body').on('click', '.js-link', function () {
+        var $self = $(this);
+
+        History.pushState(null, $self.text(), $self.attr('href'));
+
+        return false;
+    });
 }
+
+App.prototype.loadPage = function (search, title) {
+    var name = search || '';
+
+    name = (~name.indexOf('?page=')) ? name.slice(6) : 'intro';
+
+    this.hideContent();
+    this.showPreloader();
+    this.getPageContent(name, this._getPageCallback.bind(this), title);
+};
+
+App.prototype.getPageContent = function (name, callback, title) {
+    var self = this;
+
+    self._delay(function () {
+        $.get(
+            self.rootPath + 'pages/' + name + '.html',
+            {},
+            callback.bind(null, name, title)
+        ).fail(function () {
+            alert('Страница не найдена');
+        });
+    }, 300);
+};
+
+App.prototype.hideContent = function () {
+    $('.content').find('.content-inner').removeClass('visible');
+};
+
+App.prototype.showContent = function () {
+    $('.content').find('.content-inner').addClass('visible');
+};
+
+App.prototype.showPreloader = function () {
+    $('.content').find('.preloader-cont, ' +
+        '.preloader-wrapper').addClass('active');
+};
+
+App.prototype.hidePreloader = function () {
+    $('.content').find('.preloader-cont, ' +
+        '.preloader-wrapper').removeClass('active');
+};
