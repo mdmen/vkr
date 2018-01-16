@@ -2,8 +2,6 @@
 function App() {
     var self = this;
 
-    this.rootPath = '/vkr/';
-
     this._delay = function (func, ms) {
         setTimeout(func, ms);
     };
@@ -70,7 +68,7 @@ App.prototype.getPageContent = function (name, callback, title) {
 
     self._delay(function () {
         $.get(
-            self.rootPath + 'pages/' + name + '.html',
+            location.pathname + 'pages/' + name + '.html',
             {},
             callback.bind(null, name, title)
         ).fail(function () {
