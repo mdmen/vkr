@@ -1,1 +1,1 @@
-Описание пакета трехмерной графики Blender
+[Blender](https://www.blender.org/) description
